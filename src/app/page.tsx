@@ -1,12 +1,9 @@
-import { Button } from '@/components/ui/button';
+import Hero from '@/components/containers/hero';
 
 export default function Home() {
   return (
     <main>
-      <h1 className='text-3xl font-bold underline text-red-500'>
-        Shorten Your Loooong Links
-      </h1>
-      <Button variant={'link'}>Button</Button>
+      <Hero />
     </main>
   );
 }
