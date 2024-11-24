@@ -3,8 +3,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default function SkeletonToggleDarkmode() {
   return (
     <div className='flex items-center space-x-2'>
-      <Skeleton className='w-11 h-6 rounded-full' />
-      <Skeleton className='w-20 h-4 rounded' />
+      <Skeleton className='h-6 w-11 rounded-full' />
+      <Skeleton className='h-4 w-20 rounded' />
     </div>
   );
 }
