@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link } from 'lucide-react';
+import api from '@/lib/axios';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -15,6 +16,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { toast } from '@/hooks/use-toast';
+import { LoadingSpinner } from '../ui/spinner';
 
 const urlSchema = z.object({
   url: z.string().url({
@@ -30,14 +33,30 @@ export default function ShortenForm() {
     },
   });
 
-  const {} = useMutation({
-    mutationFn: async () => {},
-    onSuccess: () => {},
-    onError: () => {},
+  const { mutate: shorten, isPending } = useMutation({
+    mutationFn: async (values: z.infer<typeof urlSchema>) => {
+      const response = await api.post('/api/shorten', values);
+      return response.data;
+    },
+    onSuccess: (data) => {
+      toast({
+        title: 'Success',
+        description: data.message,
+        variant: 'success',
+      });
+      form.reset();
+    },
+    onError: (error) => {
+      toast({
+        title: 'Failed',
+        description: error.message,
+        variant: 'destructive',
+      });
+    },
   });
 
   const onSubmit = (values: z.infer<typeof urlSchema>) => {
-    console.log(values.url);
+    shorten(values);
   };
 
   return (
@@ -52,7 +71,6 @@ export default function ShortenForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel className='sr-only'>Url</FormLabel>
-              <FormMessage className='text-start text-red-700 dark:text-[#FF4136]' />
               <FormControl>
                 <div className='relative flex items-center'>
                   <div className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none'>
@@ -68,10 +86,17 @@ export default function ShortenForm() {
                     className='absolute right-1 top-1/2 -translate-y-1/2 h-10 px-4 sm:px-6'
                     type='submit'
                   >
-                    Shorten
+                    {isPending ? (
+                      <>
+                        <LoadingSpinner /> Shortening...
+                      </>
+                    ) : (
+                      'Shorten'
+                    )}
                   </Button>
                 </div>
               </FormControl>
+              <FormMessage className='text-start text-red-700 dark:text-[#FF4136]' />
             </FormItem>
           )}
         />
