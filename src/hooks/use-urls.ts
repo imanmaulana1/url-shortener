@@ -14,5 +14,7 @@ export const useUrls = (sort = 'desc', page = 1, limit = 5) => {
       );
       return response.data;
     },
+    staleTime: 60 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
 };
