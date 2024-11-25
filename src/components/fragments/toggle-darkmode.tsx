@@ -1,10 +1,10 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import SkeletonToggleDarkmode from './skeleton-toggle-darkmode';
+import SkeletonToggleDarkmode from '@/components/fragments/skeleton-toggle-darkmode';
 
 export default function ToggleDarkmode() {
   const { theme, setTheme } = useTheme();

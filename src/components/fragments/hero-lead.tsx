@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function HeroLead() {
   return (
     <div className='space-y-4 sm:space-y-6'>

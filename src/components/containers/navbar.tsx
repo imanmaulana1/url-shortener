@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import ToggleDarkmode from '../fragments/toggle-darkmode';
+import ToggleDarkmode from '@/components/fragments/toggle-darkmode';
 
 export default function Navbar() {
   return (
