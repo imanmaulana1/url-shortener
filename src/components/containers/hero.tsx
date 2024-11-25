@@ -1,5 +1,5 @@
-import HeroLead from '../fragments/hero-lead';
-import ShortenForm from '../fragments/shorten-form';
+import HeroLead from '@/components/fragments/hero-lead';
+import ShortenForm from '@/components/fragments/shorten-form';
 
 export default function Hero() {
   return (

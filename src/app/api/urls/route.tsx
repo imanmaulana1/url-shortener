@@ -28,7 +28,8 @@ export async function GET(request: NextRequest) {
         );
         return {
           id: url.id,
-          shortCode: `${process.env.NEXT_PUBLIC_BASE_URL}/${url.shortCode}`,
+          fullShortCode: `${process.env.NEXT_PUBLIC_BASE_URL}/${url.shortCode}`,
+          shortCode: url.shortCode,
           originalUrl: url.originalUrl,
           favicon: url.originalUrl,
           createdAt: url.createdAt,

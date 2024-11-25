@@ -1,9 +1,8 @@
 'use client';
 
-import * as React from 'react';
+import React, { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState } from 'react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 interface ProvidersProps
@@ -12,17 +11,7 @@ interface ProvidersProps
 }
 
 export default function Providers({ children, ...props }: ProvidersProps) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 5 * 60 * 1000,
-            gcTime: 30 * 60 * 1000,
-          },
-        },
-      })
-  );
+  const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>

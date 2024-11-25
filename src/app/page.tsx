@@ -1,12 +1,11 @@
 'use client';
 
+import { useState } from 'react';
+import { useUrls } from '@/hooks/use-urls';
 import Hero from '@/components/containers/hero';
 import TableListUrl from '@/components/containers/table-list-url';
 import PaginationTable from '@/components/fragments/pagination-table';
-import { useUrls } from '@/hooks/use-urls';
-import { useState } from 'react';
-
-type SortOrder = 'asc' | 'desc';
+import { SortOrder } from '@/types';
 
 export default function Home() {
   const [page, setPage] = useState(1);

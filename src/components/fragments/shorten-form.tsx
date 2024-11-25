@@ -3,6 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from '@/hooks/use-toast';
 import { z } from 'zod';
 import { Link } from 'lucide-react';
 import api from '@/lib/axios';
@@ -16,8 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { toast } from '@/hooks/use-toast';
-import { LoadingSpinner } from '../ui/spinner';
+import { LoadingSpinner } from '@/components/ui/spinner';
 
 const urlSchema = z.object({
   url: z.string().url({
