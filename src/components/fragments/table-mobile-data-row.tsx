@@ -35,7 +35,10 @@ export default function TableMobileDataRow({ data }: TableMobileDataRowProps) {
               <TooltipCopied data={data} />
             </div>
             <CollapsibleTrigger className='w-6 h-6 flex items-center justify-end'>
-              <CircleArrowDown className='w-full h-full' />
+              <CircleArrowDown
+                className='w-full h-full'
+                aria-label='Toggle additional details'
+              />
             </CollapsibleTrigger>
           </div>
           <CollapsibleContent className='w-full col-span-1 px-4 py-2 bg-gray-50 dark:bg-gray-800'>

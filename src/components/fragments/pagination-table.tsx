@@ -43,9 +43,8 @@ export default function PaginationTable({
         {Array.from({
           length: urls?.pagination?.totalPage || 1,
         }).map((_, index) => (
-          <PaginationItem key={index} className=''>
+          <PaginationItem key={index}>
             <PaginationLink
-              href='#'
               onClick={(e) => {
                 handlePageChange(e, index + 1);
               }}
