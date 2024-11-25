@@ -1,34 +1,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import moment from 'moment';
 
 import { TableCell, TableRow } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
 
-import { Check, Copy, ExternalLink, EyeIcon } from 'lucide-react';
+import { ExternalLink, EyeIcon } from 'lucide-react';
 import { UrlData } from '@/types';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import TooltipCopied from './tooltip-copied';
 
 interface TableDataRowProps {
   data: UrlData;
 }
 
 export default function TableDataRow({ data }: TableDataRowProps) {
-  const [copiedId, setCopiedId] = useState<string | null>(null);
-
   const formattedDate = moment('Oct-20-2024', 'MMM-DD-YYYY').format(
     'MMM-DD-YYYY'
   );
-
-  const handleCopyUrl = (url: string, id: string) => {
-    navigator.clipboard.writeText(url).then(() => {
-      setCopiedId(id);
-    });
-    setTimeout(() => {
-      setCopiedId(null);
-    }, 2000);
-  };
 
   return (
     <TableRow>
@@ -43,24 +31,7 @@ export default function TableDataRow({ data }: TableDataRowProps) {
             <ExternalLink className='w-3 h-3' />
           </Link>
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant={'ghost'}
-                aria-label='copy'
-                onClick={() => handleCopyUrl(data.shortCode, data.id)}
-              >
-                {copiedId === data.id ? (
-                  <Check className='w-4 h-4' />
-                ) : (
-                  <Copy className='w-4 h-4' />
-                )}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p className='text-sm'>Copy Link</p>
-            </TooltipContent>
-          </Tooltip>
+          <TooltipCopied data={data} />
         </div>
       </TableCell>
       <TableCell className='px-6'>

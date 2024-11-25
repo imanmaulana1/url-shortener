@@ -26,7 +26,7 @@ export default function PaginationTable({
 
   return (
     <Pagination key={page} className='my-8'>
-      <PaginationContent>
+      <PaginationContent className='pb-6'>
         {urls?.pagination?.totalPage && urls.pagination.totalPage > 1 && (
           <PaginationItem className=' mr-1'>
             {page > 1 ? (

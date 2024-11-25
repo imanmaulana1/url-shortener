@@ -26,10 +26,10 @@ export default function TableListUrl({
         <TableHeaderRow sort={sort} setSort={setSort} />
       </TableHeader>
       <TableBody>
-        {isLoading && <TableLoadingRow />}
+        {isLoading && <TableLoadingRow colspan={5} />}
 
         {!isLoading && urls?.data.length === 0 ? (
-          <TableNoDataRow />
+          <TableNoDataRow colspan={5} />
         ) : (
           urls?.data.map((url) => <TableDataRow key={url.id} data={url} />)
         )}

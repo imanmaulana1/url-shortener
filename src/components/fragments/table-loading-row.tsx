@@ -1,9 +1,13 @@
 import TablePlaceholderRow from '@/components/containers/table-placeholder-row';
 import { LoadingSpinner } from '@/components/ui/spinner';
 
-export default function TableLoadingRow() {
+interface TableLoadingRowProps {
+  colspan: number;
+}
+
+export default function TableLoadingRow({ colspan }: TableLoadingRowProps) {
   return (
-    <TablePlaceholderRow>
+    <TablePlaceholderRow colspan={colspan}>
       <LoadingSpinner className='mx-auto' />
     </TablePlaceholderRow>
   );

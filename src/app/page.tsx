@@ -6,6 +6,7 @@ import Hero from '@/components/containers/hero';
 import TableListUrl from '@/components/containers/table-list-url';
 import PaginationTable from '@/components/fragments/pagination-table';
 import { SortOrder } from '@/types';
+import TableMobile from '@/components/containers/table-mobile';
 
 export default function Home() {
   const [page, setPage] = useState(1);
@@ -19,9 +20,13 @@ export default function Home() {
     e.preventDefault();
     setPage(page);
   };
+
   return (
     <>
       <Hero />
+      <section className='block lg:hidden'>
+        <TableMobile urls={urls} isLoading={isLoading} />
+      </section>
       <section className='hidden lg:block'>
         <TableListUrl
           urls={urls}
@@ -29,11 +34,10 @@ export default function Home() {
           sort={sort}
           setSort={setSort}
         />
-
-        {urls && urls.pagination && urls.pagination.totalPage > 1 && (
-          <PaginationTable page={page} handlePageChange={handlePageChange} />
-        )}
       </section>
+      {urls && urls.pagination && urls.pagination.totalPage > 1 && (
+        <PaginationTable page={page} handlePageChange={handlePageChange} />
+      )}
     </>
   );
 }
