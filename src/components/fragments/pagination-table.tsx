@@ -35,7 +35,7 @@ export default function PaginationTable({
                 className='cursor-pointer'
               />
             ) : (
-              <PaginationPrevious className='cursor-not-allowed opacity-50' />
+              <PaginationPrevious className='cursor-not-allowed opacity-70' />
             )}
           </PaginationItem>
         )}
@@ -68,7 +68,7 @@ export default function PaginationTable({
                 className='cursor-pointer'
               />
             ) : (
-              <PaginationNext className='cursor-not-allowed opacity-50' />
+              <PaginationNext className='cursor-not-allowed opacity-70' />
             )}
           </PaginationItem>
         )}
