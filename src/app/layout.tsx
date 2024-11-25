@@ -33,8 +33,8 @@ export default function RootLayout({
       >
         <Providers
           attribute='class'
-          defaultTheme='light'
-          enableSystem={false}
+          defaultTheme='dark'
+          enableSystem
           disableTransitionOnChange
         >
           <header>

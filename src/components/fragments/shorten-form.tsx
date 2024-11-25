@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -33,6 +33,8 @@ export default function ShortenForm() {
     },
   });
 
+  const queryClient = useQueryClient();
+
   const { mutate: shorten, isPending } = useMutation({
     mutationFn: async (values: z.infer<typeof urlSchema>) => {
       const response = await api.post('/api/shorten', values);
@@ -45,6 +47,7 @@ export default function ShortenForm() {
         variant: 'success',
       });
       form.reset();
+      queryClient.invalidateQueries({ queryKey: ['urls'] });
     },
     onError: (error) => {
       toast({

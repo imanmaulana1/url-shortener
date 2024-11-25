@@ -1,12 +1,39 @@
+'use client';
+
 import Hero from '@/components/containers/hero';
 import TableListUrl from '@/components/containers/table-list-url';
+import PaginationTable from '@/components/fragments/pagination-table';
+import { useUrls } from '@/hooks/use-urls';
+import { useState } from 'react';
+
+type SortOrder = 'asc' | 'desc';
 
 export default function Home() {
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState<SortOrder>('desc');
+  const { data: urls, isLoading } = useUrls(sort, page, 5);
+
+  const handlePageChange = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    page: number
+  ) => {
+    e.preventDefault();
+    setPage(page);
+  };
   return (
     <>
       <Hero />
       <section className='hidden lg:block'>
-        <TableListUrl />
+        <TableListUrl
+          urls={urls}
+          isLoading={isLoading}
+          sort={sort}
+          setSort={setSort}
+        />
+
+        {urls && urls.pagination && urls.pagination.totalPage > 1 && (
+          <PaginationTable page={page} handlePageChange={handlePageChange} />
+        )}
       </section>
     </>
   );

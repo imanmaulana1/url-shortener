@@ -15,7 +15,7 @@ export default function ToggleDarkmode() {
 
     const savedTheme = localStorage.getItem('theme');
     if (!savedTheme) {
-      setTheme('light');
+      setTheme('dark');
     }
   }, [setTheme]);
 
@@ -29,6 +29,7 @@ export default function ToggleDarkmode() {
             onCheckedChange={() =>
               setTheme(theme === 'light' ? 'dark' : 'light')
             }
+            aria-label='Toggle dark mode'
           />
           <Label htmlFor='dark-mode'>Dark Mode</Label>
         </div>
