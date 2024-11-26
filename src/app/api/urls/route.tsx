@@ -31,7 +31,6 @@ export async function GET(request: NextRequest) {
           fullShortCode: `${process.env.NEXT_PUBLIC_BASE_URL}/${url.shortCode}`,
           shortCode: url.shortCode,
           originalUrl: url.originalUrl,
-          favicon: url.originalUrl,
           createdAt: url.createdAt,
           visits: url.visits,
           qrCode: qrCode,

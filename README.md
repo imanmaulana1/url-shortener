@@ -1,36 +1,149 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Linkly URL Shortener
 
-## Getting Started
+Linkly is a modern URL shortener application that simplifies managing links. It allows users to shorten long URLs, customize short URLs, and track user engagement efficiently.
 
-First, run the development server:
+## **Demo**
+
+[https://linkly-shortener.vercel.app/](https://linkly-shortener.vercel.app/)
+
+## **Screenshots**
+
+<img src="https://linkly-shortener.vercel.app/ss.png" alt="Screenshot" border="0">
+
+---
+
+## **Features**
+
+- 🔗 **Shorten Long URLs**: Easily convert lengthy URLs into concise, shareable links.
+- 📊 **Track Engagement**: Monitor click-through rates
+- ⚡ **Fast and Reliable**: Built with cutting-edge technologies for optimal performance.
+
+---
+
+## **Technologies Used**
+
+- **Frontend**: [Next.js](https://nextjs.org/) (v15.0.3)
+- **Backend**: Integrated API routes in Next.js.
+- **Database**: [Prisma ORM](https://www.prisma.io/) with PostgreSQL.
+- **Styling**: Tailwind CSS.
+- **Deployment**: Vercel.
+
+---
+
+## **Getting Started**
+
+### **Prerequisites**
+
+Ensure you have the following installed on your system:
+- [Node.js](https://nodejs.org/) (v18+)
+- [npm](https://www.npmjs.com/) or [pnpm](https://pnpm.io/) or [Yarn](https://yarnpkg.com/)
+- PostgreSQL
+
+### **Setup**
+
+1. Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+    git clone https://github.com/imanmaulana1/linkly-url-shortener.git
+    cd linkly-url-shortener
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+    npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Create a .env file at the root of the project and configure the following:
 
-## Learn More
+```bash
+    DATABASE_URL=your_database_connection_string
+    NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Generate Prisma client:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+    npx prisma generate
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Run database migrations:
 
-## Deploy on Vercel
+```bash
+    npx prisma migrate dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+6. Start the development server:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+    npm run dev
+```
+
+7. Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
+   
+---
+
+## **Environment Variables**
+
+| Variable | Description |
+| --- | --- |
+| `DATABASE_URL` | The connection string for your PostgreSQL database. |
+| `NEXT_PUBLIC_BASE_URL` | The base URL for the application. |
+
+---
+
+## **API Endpoints**
+
+- **Shorten URL**: `/api/shorten`
+
+  - Method: POST
+  - Request Body:
+
+    ```json
+    {       
+        url: "https://example.com/long-url"
+    } 
+    ```
+  
+  - Response: 
+
+    ```json
+    {
+      "success": true,
+      "message": "Your link has been successfully shortened!",
+      "data": {
+        "originalUrl": "https://example.com/long-url",
+        "shortCode": "short-code",
+      }
+    }
+    ```
+
+- **Get All URLs**: `/api/urls?page=1&limit=10&sortBy=desc`
+
+  - Method: GET
+  - Response:
+
+    ```json
+    {
+      "success": true,
+      "message": "URLs fetched successfully",
+      "data": [
+        {
+          "id": 1,
+          "fullShortCode": "https://linkly-shortener.vercel.app/short-code",
+          "shortCode": "short-code",
+          "originalUrl": "https://example.com/long-url",
+          "createdAt": "2023-06-01T00:00:00.000Z",
+          "visits": 0,
+          "qrCode": "qr-code"
+        }
+      ],
+      "pagination": {
+        "currentPage": 1,
+        "currentLimit": 10,
+        "totalPage": 1,
+        "totalData": 1,
+        "hasMore": false
+      }
+    }
+    ```

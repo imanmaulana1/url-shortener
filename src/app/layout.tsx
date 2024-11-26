@@ -25,12 +25,19 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'URL Shortener Linkly | Shorten, Share, Track URLs',
+    type: 'website',
+    siteName: 'URL Shortener Linkly',
     description:
       'QuickLink simplifies your links. Shorten long URLs, customize them, and track click user engagement all in one place. Ideal for professionals, marketers, and casual users.',
-    url: process.env.NEXT_PUBLIC_BASE_URL,
+    url:
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      'https://linkly-shortener.vercel.app/',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/meta-image.png`,
+        url: `${
+          process.env.NEXT_PUBLIC_BASE_URL ||
+          'https://linkly-shortener.vercel.app/'
+        }/meta-image.png`,
         width: 1200,
         height: 630,
         alt: 'Preview of Linkly URL Shortener',
@@ -41,8 +48,19 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'URL Shortener Linkly | Shorten, Share, Track URLs',
     description:
-      'QuickLink simplifies your links. Shorten long URLs, customize them, and track click user engagement all in one place.',
-    images: [`${process.env.NEXT_PUBLIC_BASE_URL}/meta-image.png`],
+      'QuickLink simplifies your links. Shorten long URLs, customize them, and track click user engagement all in one place. Ideal for professionals, marketers, and casual users.',
+    site: '@YourTwitterHandle', // Tambahkan jika ada
+    images: [
+      `${
+        process.env.NEXT_PUBLIC_BASE_URL ||
+        'https://linkly-shortener.vercel.app/'
+      }/meta-image.png`,
+    ],
+  },
+  alternates: {
+    canonical:
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      'https://linkly-shortener.vercel.app/',
   },
 };
 
