@@ -4,13 +4,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 interface Params {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
-export async function GET(request: NextRequest, { params }: Params) {
-  const { id } = await params;
+export async function GET(request: NextRequest, params: Params) {
+  const { id } = await params.params;
 
   try {
     const data = await prisma.url.findUnique({
@@ -50,9 +48,9 @@ export async function GET(request: NextRequest, { params }: Params) {
   }
 }
 
-export async function PATCH(request: NextRequest, { params }: Params) {
+export async function PATCH(request: NextRequest, params: Params) {
   const body = await request.json();
-  const { id } = await params;
+  const { id } = await params.params;
 
   const validatedBody = urlSchema.parse(body);
 
@@ -104,8 +102,8 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: Params) {
-  const { id } = await params;
+export async function DELETE(request: NextRequest, params: Params) {
+  const { id } = await params.params;
 
   try {
     const deletedUrl = await prisma.url.delete({
