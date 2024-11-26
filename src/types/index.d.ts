@@ -34,4 +34,10 @@ export interface SuccessResponse {
 export interface ErrorResponse {
   success: boolean;
   message: string;
+  errors?: [
+    {
+      field: string;
+      message: string;
+    }
+  ];
 }

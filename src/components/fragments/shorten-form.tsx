@@ -1,12 +1,9 @@
 'use client';
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from '@/hooks/use-toast';
 import { z } from 'zod';
 import { Link } from 'lucide-react';
-import api from '@/lib/axios';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -18,12 +15,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { LoadingSpinner } from '@/components/ui/spinner';
+import { useCreateUrl } from '@/hooks/use-urls';
+import { urlSchema } from '@/lib/schemas';
 
-const urlSchema = z.object({
-  url: z.string().url({
-    message: 'Please enter a valid URL',
-  }),
-});
+
 
 export default function ShortenForm() {
   const form = useForm<z.infer<typeof urlSchema>>({
@@ -33,33 +28,14 @@ export default function ShortenForm() {
     },
   });
 
-  const queryClient = useQueryClient();
-
-  const { mutate: shorten, isPending } = useMutation({
-    mutationFn: async (values: z.infer<typeof urlSchema>) => {
-      const response = await api.post('/api/shorten', values);
-      return response.data;
-    },
-    onSuccess: (data) => {
-      toast({
-        title: 'Success',
-        description: data.message,
-        variant: 'success',
-      });
-      form.reset();
-      queryClient.invalidateQueries({ queryKey: ['urls'] });
-    },
-    onError: (error) => {
-      toast({
-        title: 'Failed',
-        description: error.message,
-        variant: 'destructive',
-      });
-    },
-  });
+  const { mutate: shorten, isPending } = useCreateUrl();
 
   const onSubmit = (values: z.infer<typeof urlSchema>) => {
-    shorten(values);
+    shorten(values, {
+      onSuccess: () => {
+        form.reset();
+      },
+    });
   };
 
   return (

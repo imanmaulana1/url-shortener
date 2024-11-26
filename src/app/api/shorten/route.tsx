@@ -2,10 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { nanoid } from 'nanoid';
 import prisma from '@/lib/db';
 import { z } from 'zod';
+import { urlSchema } from '@/lib/schemas';
 
-const urlSchema = z.object({
-  url: z.string().url('Invalid URL. Please enter a valid URL.'),
-});
 
 export async function POST(request: NextRequest) {
   try {

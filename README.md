@@ -1,5 +1,5 @@
 # Linkly URL Shortener
-  
+
 Linkly is a modern URL shortener application that simplifies managing links. It allows users to shorten long URLs, customize short URLs, and track user engagement efficiently.
 
 ## **Demo**
@@ -23,21 +23,21 @@ Linkly is a modern URL shortener application that simplifies managing links. It 
 ## **Technologies Used**
 
 ![Next.js](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white) 
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![ShadnCN UI](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) 
-![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white) 
-![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=ReactQuery&logoColor=white) 
-![Axios](https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white) 
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=ReactQuery&logoColor=white)
+![Axios](https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white)
 
 - **Framework**: [Next.js](https://nextjs.org/) (v15.0.3)
 - **UI Components**: [ShadCN UI](https://shadcn.dev/)
 - **Database**: [Prisma ORM](https://www.prisma.io/) with PostgreSQL.
-- **State Management**: [React Query](https://tanstack.com/query) 
-- **HTTP Client**: [Axios](https://axios-http.com/) 
+- **State Management**: [React Query](https://tanstack.com/query)
+- **HTTP Client**: [Axios](https://axios-http.com/)
 - **Styling**: Tailwind CSS.
 - **Deployment**: Vercel.
-  
+
 ---
 
 ## **Getting Started**
@@ -45,6 +45,7 @@ Linkly is a modern URL shortener application that simplifies managing links. It 
 ### **Prerequisites**
 
 Ensure you have the following installed on your system:
+
 - [Node.js](https://nodejs.org/) (v18+)
 - [npm](https://www.npmjs.com/) or [pnpm](https://pnpm.io/) or [Yarn](https://yarnpkg.com/)
 - PostgreSQL
@@ -90,15 +91,15 @@ Ensure you have the following installed on your system:
 ```
 
 7. Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
-   
+
 ---
 
 ## **Environment Variables**
 
-| Variable | Description |
-| --- | --- |
-| `DATABASE_URL` | The connection string for your PostgreSQL database. |
-| `NEXT_PUBLIC_BASE_URL` | The base URL for the application. |
+| Variable               | Description                                         |
+| ---------------------- | --------------------------------------------------- |
+| `DATABASE_URL`         | The connection string for your PostgreSQL database. |
+| `NEXT_PUBLIC_BASE_URL` | The base URL for the application.                   |
 
 ---
 
@@ -109,6 +110,7 @@ This API provides URL shortening functionality. Below are the available endpoint
 ### Endpoints
 
 #### 1. Get All URLs
+
 - **Endpoint**: `{{BASE_URL}}/api/urls`
 - **Method**: GET
 - **Query Parameters (optional)**:
@@ -141,7 +143,6 @@ This API provides URL shortening functionality. Below are the available endpoint
     }
   }
   ```
-  
   ###### Error (500 Internal Server Error)
   ```json
   {
@@ -149,8 +150,8 @@ This API provides URL shortening functionality. Below are the available endpoint
     "message": "Error fetching URLs"
   }
   ```
-
 #### 2. Create Shorten URL
+
 - **Endpoint**: `{{BASE_URL}}/api/shorten`
 - **Method**: POST
 - **Response**:
@@ -161,8 +162,21 @@ This API provides URL shortening functionality. Below are the available endpoint
     "message": "Your link has been successfully shortened!",
     "data": {
       "originalUrl": "https://linkly-shortener.vercel.app/short-code",
-      "shortCode": "short-code",
-    },
+      "shortCode": "short-code"
+    }
+  }
+  ```
+  ###### Error (400 Bad Request)
+  ```json
+  {
+    "success": false,
+    "message": "Validation failed",
+    "errors": [
+      { 
+        "fields": "url", 
+        "message": "Please enter a valid URL" 
+      }
+    ]
   }
   ```
   ###### Error (500 Internal Server Error)
@@ -173,7 +187,82 @@ This API provides URL shortening functionality. Below are the available endpoint
   }
   ```
 
-#### 3. Delete URL
+#### 3. GET URL by ID
+
+- **Endpoint**: `{{BASE_URL}}/api/{id}`
+- **Method**: GET
+- **Response**:
+  ###### Success (200 OK)
+  ```json
+  {
+    "success": true,
+    "message": "URL fetched successfully",
+    "data": {
+      "id": "ed4f709e-db6d-48e4-9c0b-3348de41dc96",
+      "originalUrl": "https://www.google.com",
+      "shortCode": "aMwlPX",
+      "createdAt": "2024-11-26T15:49:42.580Z",
+      "visits": 0
+    }
+  }
+  ```
+  ###### Error (404 Not Found)
+  ```json
+  {
+    "success": false,
+    "message": "The link you requested does not exist"
+  }
+  ```
+  ###### Error (500 Internal Server Error)
+  ```json
+  {
+    "success": false,
+    "message": "An unexpected error occurred"
+  }
+  ```
+
+#### 4. Update URL
+
+- **Endpoint**: `{{BASE_URL}}/api/{id}`
+- **Method**: PATCH
+- **Response**:
+  ###### Success (200 OK)
+  ```json
+  {
+    "success": true,
+    "message": "Your link has been successfully updated!",
+    "data": {
+      "id": "ed4f709e-db6d-48e4-9c0b-3348de41dc96",
+      "originalUrl": "https://www.google.com",
+      "shortCode": "aMwlPX",
+      "createdAt": "2024-11-26T15:49:42.580Z",
+      "visits": 0
+    }
+  }
+  ```
+   ###### Error (400 Bad Request)
+  ```json
+  {
+    "success": false,
+    "message": "Validation failed",
+    "errors": [
+      { 
+        "fields": "url", 
+        "message": "Please enter a valid URL" 
+      }
+    ]
+  }
+  ```
+  ###### Error (500 Internal Server Error)
+  ```json
+  {
+    "success": false,
+    "message": "An unexpected error occurred"
+  }
+  ```
+
+#### 5. Delete URL
+
 - **Endpoint**: `{{BASE_URL}}/api/{id}`
 - **Method**: DELETE
 - **Response**:
@@ -183,14 +272,14 @@ This API provides URL shortening functionality. Below are the available endpoint
     "success": true,
     "message": "Your link has been successfully deleted!",
     "data": {
-      "id": "123",
-    },
+      "id": "ed4f709e-db6d-48e4-9c0b-3348de41dc96"
+    }
   }
   ```
   ###### Error (500 Internal Server Error)
   ```json
   {
     "success": false,
-    "message": "Failed to delete your link."
+    "message": "An unexpected error occurred"
   }
   ```

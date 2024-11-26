@@ -20,6 +20,75 @@ export const useUrls = (sort = 'desc', page = 1, limit = 5) => {
   });
 };
 
+export const useUrl = (id: string) => {
+  return useQuery<SuccessResponse>({
+    queryKey: ['url', id],
+    queryFn: async () => {
+      const response = await api.get(`/api/${id}`);
+      return response.data;
+    },
+    enabled: !!id,
+  });
+};
+
+export const useCreateUrl = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (values: { url: string }) => {
+      const response = await api.post('/api/shorten', values);
+      return response.data;
+    },
+    onSuccess: (data) => {
+      toast({
+        title: 'Success',
+        description: data.message,
+        variant: 'success',
+      });
+      queryClient.invalidateQueries({ queryKey: ['urls'] });
+    },
+    onError: (error) => {
+      toast({
+        title: 'Failed',
+        description: error.message,
+        variant: 'destructive',
+      });
+    },
+  });
+
+  return mutation;
+};
+
+export const useUpdateUrl = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async ({ id, url }: { id: string; url: string }) => {
+      const response = await api.patch(`/api/${id}`, {
+        url,
+      });
+      return response.data;
+    },
+    onSuccess: (data) => {
+      toast({
+        title: 'Success',
+        description: data.message,
+        variant: 'success',
+      });
+      queryClient.invalidateQueries({ queryKey: ['urls'] });
+    },
+    onError: (error: ErrorResponse) => {
+      toast({
+        title: 'Failed',
+        description: error.message,
+        variant: 'destructive',
+      });
+    },
+  });
+
+  return mutation;
+};
+
 export const useDeleteUrl = () => {
   const queryClient = useQueryClient();
 

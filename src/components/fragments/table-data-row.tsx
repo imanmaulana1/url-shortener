@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import moment from 'moment';
-import { Edit2, ExternalLink, EyeIcon } from 'lucide-react';
+import { ExternalLink, EyeIcon } from 'lucide-react';
 
 import { TableCell, TableRow } from '@/components/ui/table';
 import {
@@ -10,17 +10,16 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import TooltipCopied from '@/components/fragments/tooltip-copied';
-import TooltipAction from '@/components/fragments/tooltip-action';
 import ModalDelete from '@/components/fragments/modal-delete';
+import ModalEdit from '@/components/fragments/modal-edit';
 
 import { UrlData } from '@/types';
 
 interface TableDataRowProps {
   data: UrlData;
-  onEdit: (id: string) => void;
 }
 
-export default function TableDataRow({ data, onEdit }: TableDataRowProps) {
+export default function TableDataRow({ data }: TableDataRowProps) {
   const formattedDate = moment('Oct-20-2024', 'MMM-DD-YYYY').format(
     'MMM-DD-YYYY'
   );
@@ -76,20 +75,7 @@ export default function TableDataRow({ data, onEdit }: TableDataRowProps) {
       </TableCell>
       <TableCell className='px-6'>
         <div className='flex items-center justify-center space-x-2'>
-          <TooltipAction
-            onClick={() => onEdit(data.id)}
-            icon={<Edit2 className='h-4 w-4' />}
-            tooltipContent='Edit'
-            className=' bg-blue-500 
-        text-white 
-        hover:text-gray-200
-        hover:bg-blue-600 
-        dark:bg-blue-600 
-        dark:hover:bg-blue-700 
-        focus:ring-2 
-        focus:ring-blue-300 
-        dark:focus:ring-blue-800'
-          />
+          <ModalEdit id={data.id} />
           <ModalDelete id={data.id} />
         </div>
       </TableCell>

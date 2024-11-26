@@ -21,7 +21,6 @@ interface ModalDeleteProps {
 export default function ModalDelete({ id }: ModalDeleteProps) {
   const [open, setOpen] = useState(false);
   const { mutate: deleteUrl } = useDeleteUrl();
-
   const handleDelete = (id: string) => {
     deleteUrl(id);
   };

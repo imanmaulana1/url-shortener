@@ -21,20 +21,11 @@ export default function Home() {
     setPage(page);
   };
 
-
-  const handleEdit = (id: string) => {
-    console.log('edit', id);
-  };
-
   return (
     <>
       <Hero />
       <section className='block lg:hidden'>
-        <TableMobile
-          urls={urls}
-          isLoading={isLoading}
-          onEdit={handleEdit}
-        />
+        <TableMobile urls={urls} isLoading={isLoading} />
       </section>
       <section className='hidden lg:block'>
         <TableListUrl
@@ -42,7 +33,6 @@ export default function Home() {
           isLoading={isLoading}
           sort={sort}
           setSort={setSort}
-          onEdit={handleEdit}
         />
       </section>
       {urls && urls.pagination && urls.pagination.totalPage > 1 && (
