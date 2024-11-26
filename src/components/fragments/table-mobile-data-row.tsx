@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { CircleArrowDown, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
+import { CircleArrowDown, Edit2, ExternalLink } from 'lucide-react';
 import { TableCell, TableRow } from '@/components/ui/table';
 import TooltipCopied from '@/components/fragments/tooltip-copied';
 import {
@@ -7,15 +8,20 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import TooltipAction from '@/components/fragments/tooltip-action';
+import ModalDelete from '@/components/fragments/modal-delete';
 
 import { UrlData } from '@/types';
-import Image from 'next/image';
 
 interface TableMobileDataRowProps {
   data: UrlData;
+  onEdit: (id: string) => void;
 }
 
-export default function TableMobileDataRow({ data }: TableMobileDataRowProps) {
+export default function TableMobileDataRow({
+  data,
+  onEdit,
+}: TableMobileDataRowProps) {
   return (
     <TableRow className='hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors'>
       <TableCell colSpan={12} className='px-4 py-3 w-full'>
@@ -72,6 +78,23 @@ export default function TableMobileDataRow({ data }: TableMobileDataRowProps) {
                   Total Visits
                 </span>
                 <p className='text-sm'>{data.visits} Visits</p>
+              </div>
+              <div className='flex items-center justify-end space-x-2'>
+                <TooltipAction
+                  onClick={() => onEdit(data.id)}
+                  icon={<Edit2 className='h-4 w-4' />}
+                  tooltipContent='Edit'
+                  className=' bg-blue-500 
+        text-white 
+        hover:text-gray-200
+        hover:bg-blue-600 
+        dark:bg-blue-600 
+        dark:hover:bg-blue-700 
+        focus:ring-2 
+        focus:ring-blue-300 
+        dark:focus:ring-blue-800'
+                />
+                <ModalDelete id={data.id} />
               </div>
             </div>
           </CollapsibleContent>

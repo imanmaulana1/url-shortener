@@ -102,58 +102,95 @@ Ensure you have the following installed on your system:
 
 ---
 
-## **API Endpoints**
+## API Documentation
 
-- **Shorten URL**: `/api/shorten`
+This API provides URL shortening functionality. Below are the available endpoints, including methods, request parameters, and response examples.
 
-  - Method: POST
-  - Request Body:
+### Endpoints
 
-    ```json
-    {       
-        url: "https://example.com/long-url"
-    } 
-    ```
-  
-  - Response: 
-
-    ```json
-    {
-      "success": true,
-      "message": "Your link has been successfully shortened!",
-      "data": {
-        "originalUrl": "https://example.com/long-url",
+#### 1. Get All URLs
+- **Endpoint**: `{{BASE_URL}}/api/urls`
+- **Method**: GET
+- **Query Parameters (optional)**:
+  - `page` (integer): Page number to fetch (default: 1).
+  - `limit` (integer): Number of records per page (default: 5).
+  - `sortBy` (string): Sort order of records (`asc` or `desc`, default: `desc`).
+- **Response**:
+  ###### Success (200 OK)
+  ```json
+  {
+    "success": true,
+    "message": "URLs fetched successfully",
+    "data": [
+      {
+        "id": 1,
+        "fullShortCode": "https://linkly-shortener.vercel.app/short-code",
         "shortCode": "short-code",
+        "originalUrl": "https://example.com/long-url",
+        "createdAt": "2023-06-01T00:00:00.000Z",
+        "visits": 0,
+        "qrCode": "qr-code"
       }
+    ],
+    "pagination": {
+      "currentPage": 1,
+      "currentLimit": 10,
+      "totalPage": 1,
+      "totalData": 1,
+      "hasMore": false
     }
-    ```
+  }
+  ```
+  
+  ###### Error (500 Internal Server Error)
+  ```json
+  {
+    "success": false,
+    "message": "Error fetching URLs"
+  }
+  ```
 
-- **Get All URLs**: `/api/urls?page=1&limit=10&sortBy=desc`
+#### 2. Create Shorten URL
+- **Endpoint**: `{{BASE_URL}}/api/shorten`
+- **Method**: POST
+- **Response**:
+  ###### Success (201 Created)
+  ```json
+  {
+    "success": true,
+    "message": "Your link has been successfully shortened!",
+    "data": {
+      "originalUrl": "https://linkly-shortener.vercel.app/short-code",
+      "shortCode": "short-code",
+    },
+  }
+  ```
+  ###### Error (500 Internal Server Error)
+  ```json
+  {
+    "success": false,
+    "message": "An unexpected error occurred"
+  }
+  ```
 
-  - Method: GET
-  - Response:
-
-    ```json
-    {
-      "success": true,
-      "message": "URLs fetched successfully",
-      "data": [
-        {
-          "id": 1,
-          "fullShortCode": "https://linkly-shortener.vercel.app/short-code",
-          "shortCode": "short-code",
-          "originalUrl": "https://example.com/long-url",
-          "createdAt": "2023-06-01T00:00:00.000Z",
-          "visits": 0,
-          "qrCode": "qr-code"
-        }
-      ],
-      "pagination": {
-        "currentPage": 1,
-        "currentLimit": 10,
-        "totalPage": 1,
-        "totalData": 1,
-        "hasMore": false
-      }
-    }
-    ```
+#### 3. Delete URL
+- **Endpoint**: `{{BASE_URL}}/api/{id}`
+- **Method**: DELETE
+- **Response**:
+  ###### Success (200 OK)
+  ```json
+  {
+    "success": true,
+    "message": "Your link has been successfully deleted!",
+    "data": {
+      "id": "123",
+    },
+  }
+  ```
+  ###### Error (500 Internal Server Error)
+  ```json
+  {
+    "success": false,
+    "message": "Failed to delete your link."
+  }
+  ```

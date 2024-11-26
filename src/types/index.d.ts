@@ -24,3 +24,14 @@ export interface UrlsResponse {
   data: UrlData[];
   pagination: PaginationData;
 }
+
+export interface SuccessResponse {
+  success: boolean;
+  message: string;
+  data: UrlData;
+}
+
+export interface ErrorResponse {
+  success: boolean;
+  message: string;
+}

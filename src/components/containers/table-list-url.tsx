@@ -12,6 +12,7 @@ interface TableListUrlProps {
   isLoading: boolean;
   sort: SortOrder;
   setSort: (value: SortOrder | ((prev: SortOrder) => SortOrder)) => void;
+  onEdit: (id: string) => void;
 }
 
 export default function TableListUrl({
@@ -19,6 +20,7 @@ export default function TableListUrl({
   isLoading,
   sort,
   setSort,
+  onEdit,
 }: TableListUrlProps) {
   return (
     <Table className='container lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mt-4'>
@@ -26,12 +28,14 @@ export default function TableListUrl({
         <TableHeaderRow sort={sort} setSort={setSort} />
       </TableHeader>
       <TableBody>
-        {isLoading && <TableLoadingRow colspan={5} />}
+        {isLoading && <TableLoadingRow colspan={6} />}
 
         {!isLoading && urls?.data.length === 0 ? (
-          <TableNoDataRow colspan={5} />
+          <TableNoDataRow colspan={6} />
         ) : (
-          urls?.data.map((url) => <TableDataRow key={url.id} data={url} />)
+          urls?.data.map((url) => (
+            <TableDataRow key={url.id} data={url} onEdit={onEdit} />
+          ))
         )}
       </TableBody>
     </Table>

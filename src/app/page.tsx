@@ -5,8 +5,8 @@ import { useUrls } from '@/hooks/use-urls';
 import Hero from '@/components/containers/hero';
 import TableListUrl from '@/components/containers/table-list-url';
 import PaginationTable from '@/components/fragments/pagination-table';
-import { SortOrder } from '@/types';
 import TableMobile from '@/components/containers/table-mobile';
+import { SortOrder } from '@/types';
 
 export default function Home() {
   const [page, setPage] = useState(1);
@@ -21,11 +21,20 @@ export default function Home() {
     setPage(page);
   };
 
+
+  const handleEdit = (id: string) => {
+    console.log('edit', id);
+  };
+
   return (
     <>
       <Hero />
       <section className='block lg:hidden'>
-        <TableMobile urls={urls} isLoading={isLoading} />
+        <TableMobile
+          urls={urls}
+          isLoading={isLoading}
+          onEdit={handleEdit}
+        />
       </section>
       <section className='hidden lg:block'>
         <TableListUrl
@@ -33,6 +42,7 @@ export default function Home() {
           isLoading={isLoading}
           sort={sort}
           setSort={setSort}
+          onEdit={handleEdit}
         />
       </section>
       {urls && urls.pagination && urls.pagination.totalPage > 1 && (

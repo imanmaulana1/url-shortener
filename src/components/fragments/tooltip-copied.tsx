@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Check, Copy } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -5,8 +7,6 @@ import {
 } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { UrlData } from '@/types';
-import { Check, Copy } from 'lucide-react';
-import { useState } from 'react';
 
 interface TooltipCopiedProps {
   data: UrlData;
@@ -30,7 +30,7 @@ export default function TooltipCopied({ data }: TooltipCopiedProps) {
         <Button
           variant={'ghost'}
           aria-label='copy'
-          onClick={() => handleCopyUrl(data.shortCode, data.id)}
+          onClick={() => handleCopyUrl(data.fullShortCode, data.id)}
         >
           {copiedId === data.id ? (
             <Check className='w-4 h-4' />

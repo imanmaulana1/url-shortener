@@ -13,9 +13,10 @@ import { UrlsResponse } from '@/types';
 interface TableMobileProps {
   urls: UrlsResponse | undefined;
   isLoading: boolean;
+  onEdit: (id: string) => void;
 }
 
-export default function TableMobile({ urls, isLoading }: TableMobileProps) {
+export default function TableMobile({ urls, isLoading, onEdit }: TableMobileProps) {
   return (
     <Table className='container max-w-2xl mt-8'>
       <TableHeader>
@@ -26,13 +27,13 @@ export default function TableMobile({ urls, isLoading }: TableMobileProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {isLoading && <TableLoadingRow colspan={5} />}
+        {isLoading && <TableLoadingRow colspan={6} />}
 
         {!isLoading && urls?.data.length === 0 ? (
-          <TableNoDataRow colspan={5} />
+          <TableNoDataRow colspan={6} />
         ) : (
           urls?.data.map((url) => (
-            <TableMobileDataRow key={url.id} data={url} />
+            <TableMobileDataRow key={url.id} data={url} onEdit={onEdit} />
           ))
         )}
       </TableBody>

@@ -32,6 +32,7 @@ export default function TableHeaderRow({ sort, setSort }: TableHeaderRowProps) {
           </div>
         </Button>
       </TableHead>
+      <TableHead className='px-6 py-4 text-center'>Actions</TableHead>
     </TableRow>
   );
 }
