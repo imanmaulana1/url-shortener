@@ -1,5 +1,5 @@
 # Linkly URL Shortener
-
+  
 Linkly is a modern URL shortener application that simplifies managing links. It allows users to shorten long URLs, customize short URLs, and track user engagement efficiently.
 
 ## **Demo**
@@ -22,12 +22,22 @@ Linkly is a modern URL shortener application that simplifies managing links. It 
 
 ## **Technologies Used**
 
-- **Frontend**: [Next.js](https://nextjs.org/) (v15.0.3)
-- **Backend**: Integrated API routes in Next.js.
+![Next.js](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white) 
+![ShadnCN UI](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) 
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white) 
+![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=ReactQuery&logoColor=white) 
+![Axios](https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white) 
+
+- **Framework**: [Next.js](https://nextjs.org/) (v15.0.3)
+- **UI Components**: [ShadCN UI](https://shadcn.dev/)
 - **Database**: [Prisma ORM](https://www.prisma.io/) with PostgreSQL.
+- **State Management**: [React Query](https://tanstack.com/query) 
+- **HTTP Client**: [Axios](https://axios-http.com/) 
 - **Styling**: Tailwind CSS.
 - **Deployment**: Vercel.
-
+  
 ---
 
 ## **Getting Started**
