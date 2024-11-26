@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: 'URL Shortener Linkly | Shorten, Share, Track URLs',
   description:
     'QuickLink simplifies your links. Shorten long URLs, customize them, and track click user engagement all in one place. Ideal for professionals, marketers, and casual users.',
+  icons: {
+    icon: '/icon.png',
+  },
   openGraph: {
     title: 'URL Shortener Linkly | Shorten, Share, Track URLs',
     description:
